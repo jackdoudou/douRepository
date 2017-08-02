@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>demo1</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+
+	<body>
+		<header class="news-head">
+			<a class="news-site"></a>
+		</header>
+		<div class="news-contents" id="n_contents">
+			<div class="news-inner" v-for="(item,index) in items">
+				<div class="new-avatar">
+					<a class="new-icons" href="#">
+						<img src="imgs/news_icon.jpg" />
+					</a>
+				</div>
+				<div class="news-main">
+					<div class="news-from">
+						来自话题:
+						<a href="#">{{item.from}}</a>
+						<a class="news-remove" @click="remove(index)" title="不感兴趣">×</a>
+					</div>
+					<div class="news-content">
+						<h2 class="news-title">
+							<a href="#">{{item.question}}</a>
+						</h2>
+						<div class="news-body">
+							<div class="author-info">
+								<span class="author-link">
+								<a href="#">{{item.author}}</a>
+							</span>
+								<span class="author-bio">
+								{{item.bio}}
+							</span>
+							</div>
+							<div class="news-detail">
+								{{item.detail}}
+							</div>
+							<div class="news-opt">
+								<a href="#">
+									<i class="icon-follow"></i> 关注问题
+								</a>
+								<a href="#" @click="show(index)">
+									<i class="icon-comment"></i> 2条评论
+								</a>
+								<a href="#">
+									<i class="icon-thank"></i> 感谢
+								</a>
+								<a href="#">
+									<i class="icon-share"></i> 分享
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="news-comments" v-show="isShow==index">
+					<div class="comments-title">
+						<span class="comments-topbar">2条评论</span>
+						<a href="#" class="comments-sort">切换为时间顺序</a>
+					</div>
+					<div>
+						<div class="comments-item">
+							<div class="comments-meta">
+								<a href="#" class="user-link"><img class="user-photo" src='imgs/1.jpg'>小豆豆</a>
+								<span class="comments-time">1天前</span>
+							</div>
+							<div class="commentItem-content">
+								千万不要再买一二线城市不限购又很便宜的中介和开发商整天鼓吹的商住两用房了 PS:刚刹住我妈退了一套soho
+							</div>
+							<div class="commentItem-footer">
+								<a href="#" class="comment-z">
+									<i class="icon-z"></i> 15
+								</a>
+							</div>
+						</div>
+						<div class="comments-item">
+							<div class="comments-meta">
+								<a href="#" class="user-link"><img class="user-photo" src='imgs/1.jpg'>小豆豆</a>
+								<span class="comments-time">10小时前</span>
+							</div>
+							<div class="commentItem-content">
+								千万不要再买一二线城市不限购又很便宜的中介和开发商整天鼓吹的商住两用房了，包括酒店式公寓、公寓式酒店、loft、soho等各种明目的商住楼，这里面特么原本就充满了各种猫腻和骗局…… 这点不要赞同更多，连最注重契约精神的上海都变卦了。。还有哪个城市可以自保？ PS:刚刹住我妈退了一套soho
+							</div>
+							<div class="commentItem-footer">
+								<a href="#" class="comment-z">
+									<i class="icon-z"></i> 8
+								</a>
+							</div>
+						</div>
+						<div class="comment-editor">
+							<input class="comment-sub" placeholder="写下你的评论..." />
+							<button class="button-comment" type="button">评论</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="news-addmore" @click="addmore()">加载更多</a>
+		</div>
+	</body>
+
+</html>
+<script src="js/vue.min.js"></script>
+<script>
+	var exampleData = [{
+		'from': '医学',
+		'question': '医护人员信命吗？',
+		'author': '小飞飞,',
+		'bio': '不想做事的人',
+		'detail': '读研最后一年，接诊一个病人 五十多岁女性，门诊就写一个肾积水，我以为就是结石，结果一见病人，极瘦。 问过病史得知十年内先发现结肠癌， 做了手术，又发现直肠癌，病理提示不同类型，又手术切除，结肠造口，然后又发现子宫内膜癌，又手术，病理还是新发肿…'
+	}];
+	new Vue({
+		el: '#n_contents',
+		data: {
+			items: exampleData,
+			isShow: -1
+		},
+		methods: {
+			addmore: function() {
+				exampleData.push({
+					'from': '医学',
+					'question': '医护人员信命吗？',
+					'author': '小飞飞,',
+					'author-bio': '不想做事的人,',
+					'detail': '读研最后一年，接诊一个病人 五十多岁女性，门诊就写一个肾积水，我以为就是结石，结果一见病人，极瘦。 问过病史得知十年内先发现结肠癌， 做了手术，又发现直肠癌，病理提示不同类型，又手术切除，结肠造口，然后又发现子宫内膜癌，又手术，病理还是新发肿…'
+				});
+			},
+			remove: function(i) {
+				exampleData.splice(i, 1);
+			},
+			show: function(i) {
+				this.isShow = this.isShow == i ? -1 : i;
+			}
+		}
+	})
+</script>
